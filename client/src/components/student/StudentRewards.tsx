@@ -193,7 +193,7 @@ export default function StudentRewards() {
                     </div>
 
                     <div className="text-xs text-gray-500">
-                      Redeemed on {new Date(userReward.redeemedAt).toLocaleDateString()}
+                      Redeemed on {userReward.redeemedAt ? new Date(userReward.redeemedAt).toLocaleDateString() : '—'}
                     </div>
                   </CardContent>
                 </Card>

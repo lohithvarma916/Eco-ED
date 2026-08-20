@@ -58,7 +58,7 @@ export default function RewardsManagement() {
 
   // Update reward mutation
   const { mutate: updateReward, isPending: isUpdating } = useMutation({
-    mutationFn: async ({ id, data }: { id: string; data: Partial<Reward> }) => {
+    mutationFn: async ({ id, data }: { id: string; data: { title?: string; description?: string; rewardLink?: string; pointsRequired?: number } }) => {
       const res = await fetch(`/api/rewards/${id}`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
@@ -109,7 +109,15 @@ export default function RewardsManagement() {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (editingReward) {
-      updateReward({ id: editingReward.id, data: formData });
+      updateReward({
+        id: editingReward.id,
+        data: {
+          title: formData.title,
+          description: formData.description,
+          rewardLink: formData.rewardLink,
+          pointsRequired: Number(formData.pointsRequired),
+        },
+      });
     } else {
       createReward(formData);
     }

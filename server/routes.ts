@@ -1,11 +1,9 @@
 import type { Express } from "express";
 import { createServer, type Server } from "http";
 import { storage } from "./storage";
-import { setupAuth, isAuthenticated as replitIsAuthenticated } from "./replitAuth"; // Renamed to avoid conflict
 import { insertChallengeSchema, insertSubmissionSchema, insertForumPostSchema } from "@shared/schema";
-import { ensureUserFile, recordChallengeJoin, recordSubmission, recordForumPost, readUserData } from "./userData";
 import { z } from "zod";
-import type { RequestHandler } from 'express'; // Import RequestHandler type
+import type { RequestHandler } from 'express';
 
 // Custom authentication middleware
 const customIsAuthenticated: RequestHandler = async (req: any, res, next) => {
@@ -42,14 +40,7 @@ async function setupCustomAuth(app: Express) {
 
       const name = `${firstName} ${lastName}`.trim();
       const newUser = await storage.createUser({ email, password, name, role });
-      await ensureUserFile({
-        id: newUser.id,
-        email: newUser.email,
-        firstName: newUser.firstName,
-        lastName: newUser.lastName,
-        role: newUser.role,
-      });
-      
+
       // Set up session
       req.session.userId = newUser.id;
       
@@ -227,7 +218,6 @@ export async function registerRoutes(app: Express): Promise<Server> {
       const challengeId = req.params.id;
 
       await storage.joinChallenge(challengeId, userId);
-      await recordChallengeJoin(userId, challengeId);
       res.json({ message: "Successfully joined challenge" });
     } catch (error) {
       console.error("Error joining challenge:", error);
@@ -246,7 +236,6 @@ export async function registerRoutes(app: Express): Promise<Server> {
       });
 
       const submission = await storage.createSubmission(validatedData);
-      await recordSubmission(userId, { id: submission.id, challengeId: submission.challengeId, submittedAt: String(submission.submittedAt || '') });
       res.json(submission);
     } catch (error) {
       console.error("Error creating submission:", error);
@@ -331,7 +320,6 @@ export async function registerRoutes(app: Express): Promise<Server> {
       });
 
       const post = await storage.createForumPost(validatedData);
-      await recordForumPost(userId, { id: post.id, title: post.title, createdAt: String(post.createdAt || '') });
       res.json(post);
     } catch (error) {
       console.error("Error creating forum post:", error);
@@ -379,18 +367,6 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  // Per-user data view endpoint
-  app.get('/api/user/data', customIsAuthenticated, async (req: any, res) => {
-    try {
-      const userId = req.user.claims.sub;
-      const data = await readUserData(userId);
-      res.json(data);
-    } catch (error) {
-      console.error("Error reading user data file:", error);
-      res.status(500).json({ message: "Failed to read user data" });
-    }
-  });
-
   // User overview with challenge buckets
   app.get('/api/user/overview', customIsAuthenticated, async (req: any, res) => {
     try {
@@ -400,9 +376,6 @@ export async function registerRoutes(app: Express): Promise<Server> {
         return res.status(404).json({ message: 'User not found' });
       }
 
-      const userData = await readUserData(userId);
-
-      // For students, compute challenge buckets relative to active challenges
       const activeChallenges = await storage.getActiveChallenges();
       const studentJoins = await storage.getStudentChallenges(userId);
 
@@ -415,14 +388,12 @@ export async function registerRoutes(app: Express): Promise<Server> {
         .filter(j => j.status === 'completed' || (j.progress ?? 0) >= 100)
         .map(j => ({ ...j }));
 
-      // For teachers, include their created challenges
       const teacherCreated = user.role === 'teacher'
         ? await storage.getChallengesByTeacher(userId)
         : [];
 
       res.json({
         user: { id: user.id, role: user.role, name: `${user.firstName ?? ''} ${user.lastName ?? ''}`.trim() },
-        userData,
         challenges: {
           notAccessed,
           accepted,
@@ -539,7 +510,8 @@ export async function registerRoutes(app: Express): Promise<Server> {
       res.status(201).json(userReward);
     } catch (error) {
       console.error("Error redeeming reward:", error);
-      if (error.message === "Insufficient points") {
+      const message = error instanceof Error ? error.message : String(error);
+      if (message === "Insufficient points") {
         return res.status(400).json({ error: "Insufficient points" });
       }
       res.status(500).json({ error: "Failed to redeem reward" });

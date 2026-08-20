@@ -399,7 +399,7 @@ export default function TeacherDashboard() {
           <CardTitle>Recent Activity</CardTitle>
         </CardHeader>
         <CardContent>
-          {analytics?.totalSubmissions > 0 ? (
+          {(analytics?.totalSubmissions ?? 0) > 0 ? (
             <div className="space-y-4">
               <div className="flex items-center space-x-4 p-4 bg-gray-50 rounded-lg">
                 <div className="w-10 h-10 bg-green-100 rounded-full flex items-center justify-center">

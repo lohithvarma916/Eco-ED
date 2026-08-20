@@ -4,10 +4,14 @@ interface AuthResponse {
   isLoggedIn: boolean;
   user: {
     id: string;
+    email?: string;
     name: string;
     firstName: string;
     lastName: string;
     role: string;
+    points?: number;
+    level?: number;
+    experience?: number;
   };
 }
 
@@ -22,7 +26,7 @@ async function checkAuth(): Promise<AuthResponse> {
     if (response.status === 401) {
       return {
         isLoggedIn: false,
-        user: { id: '', name: '', firstName: '', lastName: '', role: '' }
+        user: { id: '', name: '', firstName: '', lastName: '', role: '', email: '', points: 0, level: 1, experience: 0 }
       };
     }
     throw new Error(`Authentication check failed: ${response.status}`);

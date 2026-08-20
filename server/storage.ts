@@ -38,7 +38,11 @@ import crypto from "crypto";
 export interface IStorage {
   // User operations (IMPORTANT - mandatory for Replit Auth)
   getUser(id: string): Promise<User | undefined>;
+  getUserByEmail(email: string): Promise<User | undefined>;
   upsertUser(user: UpsertUser): Promise<User>;
+  createUser(userData: { email: string; password: string; name: string; role: string }): Promise<User>;
+  verifyPassword(userId: string, password: string): Promise<boolean>;
+  verifyPasswordByEmail(email: string, password: string): Promise<boolean>;
 
   // Challenge operations
   createChallenge(challenge: InsertChallenge): Promise<Challenge>;
@@ -119,6 +123,25 @@ export class DatabaseStorage implements IStorage {
 
   async getUserByEmail(email: string): Promise<User | undefined> {
     const [user] = await this.db.select().from(users).where(eq(users.email, email));
+    return user;
+  }
+
+  async createUser(userData: { email: string; password: string; name: string; role: string }): Promise<User> {
+    const [firstName, ...lastNameParts] = userData.name.split(" ");
+    const lastName = lastNameParts.join(" ") || "";
+    const hashedPassword = await bcrypt.hash(userData.password, 10);
+
+    const [user] = await this.db
+      .insert(users)
+      .values({
+        email: userData.email,
+        passwordHash: hashedPassword,
+        firstName,
+        lastName,
+        role: userData.role as "student" | "teacher",
+      })
+      .returning();
+
     return user;
   }
 
@@ -461,38 +484,20 @@ export class DatabaseStorage implements IStorage {
     return user[0]?.points || 0;
   }
 
-  // Authentication helper functions
-  async createUser(userData: { email: string; password: string; name: string; role: string }): Promise<User> {
-    const hashedPassword = await bcrypt.hash(userData.password, 10);
-    const [firstName, ...lastNameParts] = userData.name.split(' ');
-    const lastName = lastNameParts.join(' ') || '';
-
-    const result = await this.db.insert(users).values({
-      id: crypto.randomUUID(),
-      email: userData.email,
-      password: hashedPassword,
-      firstName,
-      lastName,
-      role: userData.role as "student" | "teacher",
-    }).returning();
-
-    return result[0];
-  }
-
   async verifyPassword(userId: string, password: string): Promise<boolean> {
     const user = await this.db.select().from(users).where(eq(users.id, userId)).limit(1);
-    if (!user[0] || !(user[0] as any).password) {
+    if (!user[0] || !user[0].passwordHash) {
       return false;
     }
-    return await bcrypt.compare(password, (user[0] as any).password);
+    return await bcrypt.compare(password, user[0].passwordHash);
   }
 
   async verifyPasswordByEmail(email: string, password: string): Promise<boolean> {
     const user = await this.db.select().from(users).where(eq(users.email, email)).limit(1);
-    if (!user[0] || !(user[0] as any).password) {
+    if (!user[0] || !user[0].passwordHash) {
       return false;
     }
-    return await bcrypt.compare(password, (user[0] as any).password);
+    return await bcrypt.compare(password, user[0].passwordHash);
   }
 }
 
@@ -790,16 +795,19 @@ class MemoryStorage implements IStorage {
 let storageImpl: IStorage;
 
 async function initializeStorage() {
-  if (process.env.DATABASE_URL) {
-    const { db } = await import("./db");
-    storageImpl = new DatabaseStorage(db);
-  } else {
-    storageImpl = new MemoryStorage();
+  if (!process.env.DATABASE_URL) {
+    throw new Error("DATABASE_URL is required. Configure Supabase/PostgreSQL before starting the app.");
   }
+
+  const { db } = await import("./db");
+  storageImpl = new DatabaseStorage(db);
 }
 
 // Initialize storage
-initializeStorage().catch(console.error);
+initializeStorage().catch((error) => {
+  console.error("Storage initialization failed:", error);
+  process.exit(1);
+});
 
 export const storage = new Proxy({} as IStorage, {
   get(target, prop) {
