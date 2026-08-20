@@ -1,0 +1,186 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
+@import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --background: hsl(0, 0%, 100%);
+  --foreground: hsl(222.2, 84%, 4.9%);
+  --card: hsl(0, 0%, 100%);
+  --card-foreground: hsl(222.2, 84%, 4.9%);
+  --popover: hsl(0, 0%, 100%);
+  --popover-foreground: hsl(222.2, 84%, 4.9%);
+  --primary: hsl(122, 39%, 49%);
+  --primary-foreground: hsl(0, 0%, 98%);
+  --secondary: hsl(210, 40%, 96%);
+  --secondary-foreground: hsl(222.2, 47.4%, 11.2%);
+  --muted: hsl(210, 40%, 96%);
+  --muted-foreground: hsl(215.4, 16.3%, 46.9%);
+  --accent: hsl(210, 40%, 96%);
+  --accent-foreground: hsl(222.2, 47.4%, 11.2%);
+  --destructive: hsl(356.3, 90.6%, 54.3%);
+  --destructive-foreground: hsl(0, 0%, 100%);
+  --border: hsl(214.3, 31.8%, 91.4%);
+  --input: hsl(214.3, 31.8%, 91.4%);
+  --ring: hsl(122, 39%, 49%);
+  --chart-1: hsl(203.9, 88.3%, 53.1%);
+  --chart-2: hsl(159.8, 100%, 36.1%);
+  --chart-3: hsl(42.0, 92.8%, 56.3%);
+  --chart-4: hsl(147.1, 78.5%, 41.2%);
+  --chart-5: hsl(341.5, 75.2%, 50.9%);
+  --sidebar: hsl(180, 6.7%, 97.1%);
+  --sidebar-foreground: hsl(210, 25%, 7.8%);
+  --sidebar-primary: hsl(203.9, 88.3%, 53.1%);
+  --sidebar-primary-foreground: hsl(0, 0%, 100%);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  --sidebar-accent: hsl(211.6, 51.4%, 92.7%);
+  --sidebar-accent-foreground: hsl(203.9, 88.3%, 53.1%);
+  --sidebar-border: hsl(205.0, 25.0%, 90.6%);
+  --sidebar-ring: hsl(202.8, 89.1%, 53.1%);
+  --font-sans: 'Inter', system-ui, sans-serif;
+  --font-serif: Georgia, serif;
+  --font-mono: Menlo, monospace;
+  --radius: 0.75rem;
+  
+  /* Teacher theme colors */
+  --teacher-bg: hsl(210, 100%, 97%);
+  --teacher-primary: hsl(210, 83%, 53%);
+  --teacher-dark: hsl(210, 100%, 23%);
+  --teacher-light: hsl(210, 100%, 95%);
+  
+  /* Student theme colors */
+  --student-bg: hsl(120, 60%, 97%);
+  --student-primary: hsl(122, 39%, 49%);
+  --student-dark: hsl(122, 100%, 12%);
+  --student-light: hsl(120, 60%, 95%);
+}
+
+.dark {
+  --background: hsl(0, 0%, 0%);
+  --foreground: hsl(200, 6.7%, 91.2%);
+  --card: hsl(228, 9.8%, 10%);
+  --card-foreground: hsl(0, 0%, 85.1%);
+  --popover: hsl(0, 0%, 0%);
+  --popover-foreground: hsl(200, 6.7%, 91.2%);
+  --primary: hsl(203.8, 87.6%, 52.5%);
+  --primary-foreground: hsl(0, 0%, 100%);
+  --secondary: hsl(195.0, 15.4%, 94.9%);
+  --secondary-foreground: hsl(210, 25%, 7.8%);
+  --muted: hsl(0, 0%, 9.4%);
+  --muted-foreground: hsl(210, 3.4%, 46.3%);
+  --accent: hsl(205.7, 70%, 7.8%);
+  --accent-foreground: hsl(203.8, 87.6%, 52.5%);
+  --destructive: hsl(356.3, 90.6%, 54.3%);
+  --destructive-foreground: hsl(0, 0%, 100%);
+  --border: hsl(210, 5.3%, 14.9%);
+  --input: hsl(207.7, 27.7%, 18.4%);
+  --ring: hsl(202.8, 89.1%, 53.1%);
+  --chart-1: hsl(203.9, 88.3%, 53.1%);
+  --chart-2: hsl(159.8, 100%, 36.1%);
+  --chart-3: hsl(42.0, 92.8%, 56.3%);
+  --chart-4: hsl(147.1, 78.5%, 41.2%);
+  --chart-5: hsl(341.5, 75.2%, 50.9%);
+  --sidebar: hsl(228, 9.8%, 10%);
+  --sidebar-foreground: hsl(0, 0%, 85.1%);
+  --sidebar-primary: hsl(202.8, 89.1%, 53.1%);
+  --sidebar-primary-foreground: hsl(0, 0%, 100%);
+  --sidebar-accent: hsl(205.7, 70%, 7.8%);
+  --sidebar-accent-foreground: hsl(203.8, 87.6%, 52.5%);
+  --sidebar-border: hsl(205.7, 15.8%, 26.1%);
+  --sidebar-ring: hsl(202.8, 89.1%, 53.1%);
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply font-sans antialiased bg-background text-foreground;
+  }
+}
+
+/* Progress ring animations */
+.progress-ring {
+  transform: rotate(-90deg);
+}
+
+.progress-ring circle {
+  stroke-dasharray: 251.2;
+  stroke-dashoffset: 251.2;
+  transition: stroke-dashoffset 0.5s ease-in-out;
+}
+
+/* Theme classes */
+.teacher-theme {
+  --primary: var(--teacher-primary);
+  --primary-foreground: hsl(0, 0%, 98%);
+  --background: var(--teacher-bg);
+  --card: hsl(0, 0%, 100%);
+  --secondary: var(--teacher-light);
+  --accent: var(--teacher-light);
+}
+
+.student-theme {
+  --primary: var(--student-primary);
+  --primary-foreground: hsl(0, 0%, 98%);
+  --background: var(--student-bg);
+  --card: hsl(0, 0%, 100%);
+  --secondary: var(--student-light);
+  --accent: var(--student-light);
+}
+
+/* Story card styling */
+.story-card {
+  background: linear-gradient(135deg, rgba(76, 175, 80, 0.1) 0%, rgba(139, 195, 74, 0.1) 100%);
+  border: 2px solid rgba(76, 175, 80, 0.2);
+}
+
+/* Challenge card hover effects */
+.challenge-card {
+  transition: all 0.3s ease;
+}
+
+.challenge-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+}
+
+/* Badge shimmer animation */
+.badge-shimmer {
+  background: linear-gradient(45deg, #ffd700, #ffed4e, #ffd700);
+  animation: shimmer 2s linear infinite;
+  background-size: 200% 200%;
+}
+
+@keyframes shimmer {
+  0% { background-position: -200% center; }
+  100% { background-position: 200% center; }
+}
+
+/* Pulse animation for loading states */
+.animate-pulse-slow {
+  animation: pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}

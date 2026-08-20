@@ -1,0 +1,24 @@
+{
+  "userId": "9b1e1fd0-2be0-4a70-821e-3ae102ba07a0",
+  "createdAt": "2026-08-20T04:43:54.359Z",
+  "profile": {
+    "email": "lohit@gmail.com",
+    "firstName": "lo",
+    "lastName": "hit",
+    "role": "student"
+  },
+  "state": {
+    "challengesJoined": [],
+    "submissions": [],
+    "posts": []
+  },
+  "events": [
+    {
+      "type": "user.created",
+      "timestamp": "2026-08-20T04:43:54.359Z",
+      "payload": {
+        "role": "student"
+      }
+    }
+  ]
+}

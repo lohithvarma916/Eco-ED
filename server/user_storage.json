@@ -1,0 +1,47 @@
+{
+  "users": [
+    {
+      "id": "f2fe3286-e1b7-45e8-bab0-8c0e09daae86",
+      "email": "23nu1a05d2@nsrit.edu.in",
+      "firstName": "hi",
+      "lastName": "hi",
+      "role": "teacher",
+      "profileImageUrl": null,
+      "points": 0,
+      "level": 1,
+      "experience": 0,
+      "createdAt": "2025-09-27T06:27:15.375Z",
+      "updatedAt": "2025-09-27T06:27:15.375Z",
+      "password": "$2b$10$jV2teZFp/CUZZPDp92w1RuRA5Pr46cXJdXU49.Zg5C3mH3do4BzGu"
+    },
+    {
+      "id": "9b1e1fd0-2be0-4a70-821e-3ae102ba07a0",
+      "email": "lohit@gmail.com",
+      "firstName": "lo",
+      "lastName": "hit",
+      "role": "student",
+      "profileImageUrl": null,
+      "points": 0,
+      "level": 1,
+      "experience": 0,
+      "createdAt": "2026-08-20T04:43:54.348Z",
+      "updatedAt": "2026-08-20T04:43:54.348Z",
+      "password": "$2b$10$Q8KIYdarPJonLxzgFO.XIOD9YvPfC4VbCCjtckIRmk8vGyXuiZyWO"
+    },
+    {
+      "id": "9ad5b19f-d55a-4c30-83b6-654d4de88f68",
+      "email": "g@gmail.com",
+      "firstName": "jo",
+      "lastName": "lo",
+      "role": "teacher",
+      "profileImageUrl": null,
+      "points": 0,
+      "level": 1,
+      "experience": 0,
+      "createdAt": "2026-08-20T04:45:09.620Z",
+      "updatedAt": "2026-08-20T04:45:09.620Z",
+      "password": "$2b$10$/czCJx/P0A4BZBKiOT/S9e2TQkE8Y.eGrbaLyRcWLHB7XL6ODLl86"
+    }
+  ],
+  "lastUpdated": "2026-08-20T04:45:09.625Z"
+}

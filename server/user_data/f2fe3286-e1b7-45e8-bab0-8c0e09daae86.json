@@ -1,0 +1,39 @@
+{
+  "userId": "f2fe3286-e1b7-45e8-bab0-8c0e09daae86",
+  "createdAt": "2025-09-27T06:27:15.387Z",
+  "profile": {
+    "email": "23nu1a05d2@nsrit.edu.in",
+    "firstName": "hi",
+    "lastName": "hi",
+    "role": "teacher"
+  },
+  "state": {
+    "challengesJoined": [],
+    "submissions": [],
+    "posts": [
+      {
+        "id": "391cd901-102a-4e6b-8a92-7320499a9c28",
+        "title": "hi students",
+        "createdAt": "Sat Sep 27 2025 11:59:52 GMT+0530 (India Standard Time)"
+      }
+    ]
+  },
+  "events": [
+    {
+      "type": "user.created",
+      "timestamp": "2025-09-27T06:27:15.387Z",
+      "payload": {
+        "role": "teacher"
+      }
+    },
+    {
+      "type": "forum.post.created",
+      "timestamp": "2025-09-27T06:29:52.558Z",
+      "payload": {
+        "id": "391cd901-102a-4e6b-8a92-7320499a9c28",
+        "title": "hi students",
+        "createdAt": "Sat Sep 27 2025 11:59:52 GMT+0530 (India Standard Time)"
+      }
+    }
+  ]
+}

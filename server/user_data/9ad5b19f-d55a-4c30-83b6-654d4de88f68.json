@@ -1,0 +1,24 @@
+{
+  "userId": "9ad5b19f-d55a-4c30-83b6-654d4de88f68",
+  "createdAt": "2026-08-20T04:45:09.627Z",
+  "profile": {
+    "email": "g@gmail.com",
+    "firstName": "jo",
+    "lastName": "lo",
+    "role": "teacher"
+  },
+  "state": {
+    "challengesJoined": [],
+    "submissions": [],
+    "posts": []
+  },
+  "events": [
+    {
+      "type": "user.created",
+      "timestamp": "2026-08-20T04:45:09.627Z",
+      "payload": {
+        "role": "teacher"
+      }
+    }
+  ]
+}
