@@ -49,7 +49,7 @@ import express from "express";
 import fs from "fs";
 import path from "path";
 import { createServer as createViteServer, createLogger } from "vite";
-import viteConfig from "../vite.config";
+import viteConfig from "../vite.config.js";
 import { nanoid } from "nanoid";
 var viteLogger = createLogger();
 export function log(message, source) {
@@ -95,7 +95,7 @@ export function setupVite(app, server) {
                                     return [4 /*yield*/, fs.promises.readFile(clientTemplate, "utf-8")];
                                 case 2:
                                     template = _a.sent();
-                                    template = template.replace("src=\"/src/main.tsx\"", "src=\"/src/main.tsx?v=".concat(nanoid(), "\""));
+                                    template = template.replace("src=\"/src/main.jsx\"", "src=\"/src/main.jsx?v=".concat(nanoid(), "\""));
                                     return [4 /*yield*/, vite.transformIndexHtml(url, template)];
                                 case 3:
                                     page = _a.sent();

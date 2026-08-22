@@ -46,8 +46,8 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 import { createServer } from "http";
-import { storage } from "./storage";
-import { insertChallengeSchema, insertSubmissionSchema, insertForumPostSchema } from "@shared/schema";
+import { storage } from "./storage.js";
+import { insertChallengeSchema, insertSubmissionSchema, insertForumPostSchema } from "../shared/schema.js";
 // Custom authentication middleware
 var customIsAuthenticated = function (req, res, next) { return __awaiter(void 0, void 0, void 0, function () {
     var userId, user;

@@ -45,9 +45,8 @@ var __spreadArray = (this && this.__spreadArray) || function (to, from, pack) {
 };
 import express from "express";
 import session from "express-session";
-import { registerRoutes } from "./routes";
-import { setupVite, serveStatic, log } from "./vite";
-import "./types"; // Import session type declarations
+import { registerRoutes } from "./routes.js";
+import { setupVite, serveStatic, log } from "./vite.js";
 var app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));

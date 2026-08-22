@@ -58,7 +58,7 @@ var __spreadArray = (this && this.__spreadArray) || function (to, from, pack) {
     }
     return to.concat(ar || Array.prototype.slice.call(from));
 };
-import { users, challenges, submissions, challengeParticipants, achievements, userAchievements, chapters, missions, userProgress, forumPosts, forumReplies, rewards, userRewards, } from "@shared/schema";
+import { users, challenges, submissions, challengeParticipants, achievements, userAchievements, chapters, missions, userProgress, forumPosts, forumReplies, rewards, userRewards, } from "../shared/schema.js";
 import { eq, desc, sql } from "drizzle-orm";
 import * as bcrypt from "bcrypt";
 import crypto from "crypto";
