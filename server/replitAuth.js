@@ -40,7 +40,7 @@ import passport from "passport";
 import session from "express-session";
 import memoize from "memoizee";
 import connectPg from "connect-pg-simple";
-import { storage } from "./storage";
+import { storage } from "./storage.js";
 if (!process.env.REPLIT_DOMAINS && process.env.USE_REPLIT_AUTH === "true") {
     throw new Error("Environment variable REPLIT_DOMAINS not provided");
 }
